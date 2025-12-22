@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "afxdialogex.h"
+#include "pch.h"
 
 
 // Диалоговое окно CObjectVal
@@ -25,5 +25,6 @@ protected:
 public:
 	int ValL;
 
+	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedOk();
 };

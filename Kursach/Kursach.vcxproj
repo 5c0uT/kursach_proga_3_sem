@@ -93,8 +93,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\lolol\Desktop\Kursach</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -194,6 +193,7 @@
     <ClInclude Include="Kursach_Doc.h" />
     <ClInclude Include="Kursach_View.h" />
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="mufta_data.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
@@ -207,6 +207,7 @@
     <ClCompile Include="Kursach_Doc.cpp" />
     <ClCompile Include="Kursach_View.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="mufta_data.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -218,6 +219,7 @@
     <ResourceCompile Include="Kursach.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="mufta_data.json" />
     <None Include="res\Kursach.rc2" />
   </ItemGroup>
   <ItemGroup>

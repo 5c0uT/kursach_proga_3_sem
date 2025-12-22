@@ -7,7 +7,7 @@
 	#error "включить pch.h до включения этого файла в PCH"
 #endif
 
-#include "resource.h"       // основные символы
+#include "pch.h"
 
 
 // CKursachApp:
@@ -17,18 +17,18 @@
 class CKursachApp : public CWinApp
 {
 public:
-	CKursachApp() noexcept;
+    CKursachApp() noexcept;
 
-
-// Переопределение
+    // Переопределение
 public:
-	virtual BOOL InitInstance();
-	virtual int ExitInstance();
+    virtual BOOL InitInstance();
+    virtual int ExitInstance();
 
-// Реализация
-	afx_msg void OnAppAbout();
+    // Реализация
+    afx_msg void OnAppAbout();
 
-	DECLARE_MESSAGE_MAP()
+    DECLARE_DYNAMIC(CKursachApp)  // Добавьте эту строку
+        DECLARE_MESSAGE_MAP()
 };
 
 extern CKursachApp theApp;

@@ -1,6 +1,5 @@
 ﻿#pragma once
-#include "afxdialogex.h"
-#include "string"
+#include "pch.h"
 
 // Диалоговое окно CObjectShponka
 class CObjectShponka : public CDialogEx
@@ -19,16 +18,16 @@ public:
     
     int m_currentRow = 0;
     double ShponkaVar[11][3]{
-        {3.0, 5.0, 13},
-        {3.0, 6.5, 16},
-        {4.0, 6.5, 16},
-        {4.0, 7.5, 19},
-        {5.0, 6.5, 16},
-        {5.0, 7.5, 19},
-        {5.0, 9.0, 22},
-        {6.0, 9.0, 22},
-        {6.0, 10.0, 25},
-        {8.0, 11.0, 28},
+        {3.0,  5.0,  13},
+        {3.0,  6.5,  16},
+        {4.0,  6.5,  16},
+        {4.0,  7.5,  19},
+        {5.0,  6.5,  16},
+        {5.0,  7.5,  19},
+        {5.0,  9.0,  22},
+        {6.0,  9.0,  22},
+        {6.0,  10.0, 25},
+        {8.0,  11.0, 28},
         {10.0, 13.0, 32}
     }; 
 
@@ -49,5 +48,6 @@ public:
 
     CComboBox ShponkaH;
     CComboBox ShponkaW;
+
     CString ShponkaB;
 };

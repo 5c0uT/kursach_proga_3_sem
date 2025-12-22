@@ -1,4 +1,4 @@
-﻿
+﻿#include "pch.h"
 // Kursach_Doc.h: интерфейс класса CKursachDoc 
 //
 
@@ -18,33 +18,33 @@ public:
 	bool m_bSborka, m_bMufta, m_bVal, m_bShponka, m_bKolco, m_bVint;
 
 	CKursachView* pView;
-	CMyFreeView* pTree;
+	CMyFreeView*  pTree;
 
-	bool Mufta_Check = false;
+	bool Mufta_Check =   false;
 	bool Shponka_Check = false;
-	bool Val_Check = false;
+	bool Val_Check =     false;
 
-	double d = 0;
-	double dt2 = 0;
-	double b = 0;
-	double b1 = 0;
-	double d1 = 0;
-	double D = 0;
-	double D1 = 0;
-	double L = 0;
-	double l = 0;
-	double r = 0;
-	double c = 0;
-	double c1 = 0;
-	double lV = 0; //длина вала
-	double eps = 1; //точность для маркеров  думай
-	double ShponkaH = 0; // высота шпонки
-	double ShponkaW = 0; //длина шпонки
-	double ShponkaR = 0; //скругление
-	double p = 0; //шаг резьбы
-	double VintLenght = 0; // длина винта
-	double VintH = 0; // ширина шлица
-	double VintW = 0; // глибина шлица
+	double d =           0;
+	double dt2 =         0;
+	double b =           0;
+	double b1 =          0;
+	double d1 =          0;
+	double D =           0;
+	double D1 =          0;
+	double L =           0;
+	double l =           0;
+	double r =           0;
+	double c =           0;
+	double c1 =          0;
+	double lV =          0; //длина вала
+	double eps =         1; //точность для маркеров  думай
+	double ShponkaH =    0; // высота шпонки
+	double ShponkaW =    0; //длина шпонки
+	double ShponkaR =    0; //скругление
+	double p =           0; //шаг резьбы
+	double VintLenght =  0; // длина винта
+	double VintH =       0; // ширина шлица
+	double VintW =       0; // глибина шлица
 
 // Операции
 public:

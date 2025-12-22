@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "afxcview.h"
+#include "pch.h"
 
 // Просмотр CMyFreeView
 class CKursachDoc;

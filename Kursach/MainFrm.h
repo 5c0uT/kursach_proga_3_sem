@@ -4,9 +4,7 @@
 #pragma once
 
 // Добавляем необходимые заголовочные файлы
-#include "CMyFreeView.h"
-#include "Kursach_View.h"
-#include "Kursach_Doc.h"
+#include "pch.h"
 
 class CMainFrame : public CFrameWnd
 {
@@ -47,12 +45,12 @@ protected:
 	{
 		// TODO: добавьте специализированный код или вызов базового класса
 		m_wndSplitter.CreateStatic(this, 1, 2);
-		m_wndSplitter.CreateView(0, 0, RUNTIME_CLASS(CMyFreeView), CSize(200, 0), pContext);
-		m_wndSplitter.CreateView(0, 1, RUNTIME_CLASS(CKursachView), CSize(0, 0), pContext);
+		m_wndSplitter.CreateView(0, 0, RUNTIME_CLASS(CMyFreeView),  CSize(200, 0), pContext);
+		m_wndSplitter.CreateView(0, 1, RUNTIME_CLASS(CKursachView), CSize(0,   0), pContext);
 
 		SetActiveView((CView*)m_wndSplitter.GetPane(0, 1));
 
-		((CKursachDoc*)GetActiveDocument())->pTree = (CMyFreeView*)m_wndSplitter.GetPane(0, 0);
+		((CKursachDoc*)GetActiveDocument())->pTree = (CMyFreeView*)m_wndSplitter.GetPane( 0, 0);
 		((CKursachDoc*)GetActiveDocument())->pView = (CKursachView*)m_wndSplitter.GetPane(0, 1);
 
 		((CMyFreeView*)m_wndSplitter.GetPane(0, 0))->m_pDoc = ((CKursachDoc*)GetActiveDocument());

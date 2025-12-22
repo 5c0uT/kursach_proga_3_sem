@@ -3,7 +3,7 @@
 //
 
 #pragma once
-#include "Kursach_Doc.h"
+#include "pch.h"
 
 class CKursachView : public CView
 {
@@ -20,15 +20,16 @@ public:
 
 // Переопределение
 public:
-	virtual void OnDraw(CDC* pDC);  // переопределено для отрисовки этого представления
+	virtual void OnDraw(           CDC* pDC);  // переопределено для отрисовки этого представления
 
-	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+	virtual BOOL PreCreateWindow(  CREATESTRUCT& cs);
 protected:
 
 	virtual BOOL OnPreparePrinting(CPrintInfo* pInfo);
 
-	virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
-	virtual void OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
+	virtual void OnBeginPrinting(  CDC* pDC, CPrintInfo* pInfo);
+	virtual void OnEndPrinting(    CDC* pDC, CPrintInfo* pInfo);
+
 	void StartKompas();
 	void CreateDetails();
 

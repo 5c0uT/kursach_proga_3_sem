@@ -51,6 +51,9 @@
     <ClInclude Include="Kursach_View.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="mufta_data.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainFrm.cpp">
@@ -80,6 +83,9 @@
     <ClCompile Include="Kursach_View.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="mufta_data.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Kursach.rc">
@@ -89,6 +95,9 @@
   <ItemGroup>
     <None Include="res\Kursach.rc2">
       <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="mufta_data.json">
+      <Filter>Файлы заголовков</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
