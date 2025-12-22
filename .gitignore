@@ -1,0 +1,22 @@
+# Создайте файл .gitignore в корне проекта
+@"
+# Visual Studio
+.vs/
+.vscode/
+*.sln.DotSettings.user
+*.user
+*.suo
+bin/
+obj/
+Debug/
+Release/
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+"@ | Out-File -Encoding UTF8 .gitignore
