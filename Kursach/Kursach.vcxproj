@@ -93,7 +93,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Users\lolol\Desktop\Kursach</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\lolol\Desktop\Kursach;$(ProjectDir);$(SolutionDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -184,6 +184,13 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Builders\CAssemblyBuilder.h" />
+    <ClInclude Include="Builders\CKolcoBuilder.h" />
+    <ClInclude Include="Builders\CMuftaBuilder.h" />
+    <ClInclude Include="Builders\Config.h" />
+    <ClInclude Include="Builders\CShponkaBuilder.h" />
+    <ClInclude Include="Builders\CValBuilder.h" />
+    <ClInclude Include="Builders\CVintBuilder.h" />
     <ClInclude Include="CMyFreeView.h" />
     <ClInclude Include="CObjectMufta.h" />
     <ClInclude Include="CObjectShponka.h" />
@@ -199,6 +206,12 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Builders\CAssemblyBuilder.cpp" />
+    <ClCompile Include="Builders\CKolcoBuilder.cpp" />
+    <ClCompile Include="Builders\CMuftaBuilder.cpp" />
+    <ClCompile Include="Builders\CShponkaBuilder.cpp" />
+    <ClCompile Include="Builders\CValBuilder.cpp" />
+    <ClCompile Include="Builders\CVintBuilder.cpp" />
     <ClCompile Include="CMyFreeView.cpp" />
     <ClCompile Include="CObjectMufta.cpp" />
     <ClCompile Include="CObjectShponka.cpp" />

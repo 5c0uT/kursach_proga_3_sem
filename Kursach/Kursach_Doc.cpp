@@ -8,8 +8,8 @@ END_MESSAGE_MAP()
 CKursachDoc::CKursachDoc() noexcept
 {
 	m_bSborka = m_bMufta = m_bVal = m_bShponka = m_bKolco = m_bVint = false;
-	pView = nullptr;
-	pTree = nullptr;
+	pView =     nullptr;
+	pTree =     nullptr;
 }
 
 CKursachDoc::~CKursachDoc()

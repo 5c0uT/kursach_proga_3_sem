@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 
 using json = nlohmann::json;
 
@@ -18,9 +18,12 @@ MuftaNameArray name_c =        { nullptr, 0 };
 MuftaNameArray name_c1 =       { nullptr, 0 };
 
 // Вспомогательная функция для освобождения массива строк
-void FreeNameArray(MuftaNameArray& arr) {
-    if (arr.data) {
-        for (size_t i = 0; i < arr.count; i++) {
+void FreeNameArray(MuftaNameArray& arr) 
+{
+    if (arr.data) 
+    {
+        for (size_t i = 0; i < arr.count; i++) 
+        {
             free((void*)arr.data[i]);
         }
         free(arr.data);
@@ -30,11 +33,13 @@ void FreeNameArray(MuftaNameArray& arr) {
 }
 
 // Функция для загрузки данных из JSON файла
-int LoadMuftaDataFromJson(const char* filename) {
+int LoadMuftaDataFromJson(const char* filename) 
+{
     try {
         // Открываем файл
         std::ifstream file(filename);
-        if (!file.is_open()) {
+        if (!file.is_open()) 
+        {
             return -1; // Ошибка открытия файла
         }
 
@@ -51,7 +56,8 @@ int LoadMuftaDataFromJson(const char* filename) {
         // Парсим таблицу Var
         auto& varArray = muftaData["Var"];
         muftaVarTable.rows = varArray.size();
-        if (muftaVarTable.rows == 0) {
+        if (muftaVarTable.rows == 0) 
+        {
             return -2; // Нет данных в таблице
         }
 
@@ -59,11 +65,13 @@ int LoadMuftaDataFromJson(const char* filename) {
 
         // Выделяем память для таблицы
         muftaVarTable.data = (double**)malloc(muftaVarTable.rows * sizeof(double*));
-        for (size_t i = 0; i < muftaVarTable.rows; i++) {
+        for (size_t i = 0; i < muftaVarTable.rows; i++) 
+        {
             muftaVarTable.data[i] = (double*)malloc(muftaVarTable.cols * sizeof(double));
 
             // Заполняем строку данными
-            for (size_t k = 0; k < muftaVarTable.cols; k++) {
+            for (size_t k = 0; k < muftaVarTable.cols; k++) 
+            {
                 muftaVarTable.data[i][k] = varArray[i][k].get<double>();
             }
         }

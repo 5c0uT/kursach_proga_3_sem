@@ -52,5 +52,30 @@
 #include "CObjectVal.h"
 #include "CObjectShponka.h"
 #include "mufta_data.h"
+#include "Config.h"
+
+// Билдеры деталей
+#include "Builders/CMuftaBuilder.h"
+#include "Builders/CValBuilder.h"
+#include "Builders/CShponkaBuilder.h"
+#include "Builders/CVintBuilder.h"
+#include "Builders/CKolcoBuilder.h"
+#include "Builders/CAssemblyBuilder.h"
+
+using Kompas6API5::ksEntityPtr;
+using Kompas6API5::ksSketchDefinitionPtr;
+using Kompas6API5::ksDocument2DPtr;
+using Kompas6API5::ksBossExtrusionDefinitionPtr;
+using Kompas6API5::ksThreadDefinitionPtr;
+using Kompas6API5::ksEntityCollectionPtr;
+using Kompas6API5::ksFaceDefinitionPtr;
+using Kompas6API5::ksEdgeDefinitionPtr;
+using Kompas6API5::ksVertexDefinitionPtr;
+using Kompas6API5::ksPlaneOffsetDefinitionPtr;
+using Kompas6API5::ksChamferDefinitionPtr;
+using Kompas6API5::ksCutExtrusionDefinitionPtr;
+using Kompas6API5::ksBossRotatedDefinitionPtr;
+using Kompas6API5::ksFilletDefinitionPtr;
+using Kompas6API5::ksCutRotatedDefinitionPtr;
 
 #endif //PCH_H

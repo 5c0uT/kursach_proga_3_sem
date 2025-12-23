@@ -1,8 +1,4 @@
-﻿
-// Kursach_View.h: интерфейс класса CKursachView
-//
-
-#pragma once
+﻿#pragma once
 #include "pch.h"
 
 class CKursachView : public CView
@@ -11,29 +7,27 @@ protected: // создать только из сериализации
 	CKursachView() noexcept;
 	DECLARE_DYNCREATE(CKursachView)
 
-// Атрибуты
+	// Атрибуты
 public:
 	CKursachDoc* GetDocument() const;
 	CButton Start;
-// Операции
+
+	// Операции
 public:
-
-// Переопределение
-public:
-	virtual void OnDraw(           CDC* pDC);  // переопределено для отрисовки этого представления
-
-	virtual BOOL PreCreateWindow(  CREATESTRUCT& cs);
-protected:
-
-	virtual BOOL OnPreparePrinting(CPrintInfo* pInfo);
-
-	virtual void OnBeginPrinting(  CDC* pDC, CPrintInfo* pInfo);
-	virtual void OnEndPrinting(    CDC* pDC, CPrintInfo* pInfo);
-
 	void StartKompas();
 	void CreateDetails();
 
-// Реализация
+	// Переопределение
+public:
+	virtual void OnDraw(CDC* pDC);  // переопределено для отрисовки этого представления
+	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+
+protected:
+	virtual BOOL OnPreparePrinting(CPrintInfo* pInfo);
+	virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
+	virtual void OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
+
+	// Реализация
 public:
 	virtual ~CKursachView();
 #ifdef _DEBUG
@@ -42,8 +36,7 @@ public:
 #endif
 
 protected:
-
-// Созданные функции схемы сообщений
+	// Созданные функции схемы сообщений
 protected:
 	DECLARE_MESSAGE_MAP()
 
@@ -53,6 +46,7 @@ public:
 
 #ifndef _DEBUG  // версия отладки в Kursach_View.cpp
 inline CKursachDoc* CKursachView::GetDocument() const
-   { return reinterpret_cast<CKursachDoc*>(m_pDocument); }
+{
+	return reinterpret_cast<CKursachDoc*>(m_pDocument);
+}
 #endif
-

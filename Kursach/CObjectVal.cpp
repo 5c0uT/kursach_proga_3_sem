@@ -24,23 +24,34 @@ END_MESSAGE_MAP()
 
 void CObjectVal::OnBnClickedOk()
 {
-	CDialogEx::OnOK();
+    // Сначала получаем данные с контролей
+    if (!UpdateData(TRUE))
+        return;
 
-	CKursachApp* pApp =      (CKursachApp*)AfxGetApp();
-	CMainFrame* pMainFrame = (CMainFrame*)pApp->GetMainWnd();
-	CKursachDoc* pDoc =      (CKursachDoc*)pMainFrame->GetActiveDocument();
+    CKursachApp* pApp = (CKursachApp*)AfxGetApp();
+    CMainFrame* pMainFrame = (CMainFrame*)pApp->GetMainWnd();
+    CKursachDoc* pDoc = (CKursachDoc*)pMainFrame->GetActiveDocument();
 
-	if (pDoc->L / 2 + 10 > ValL)
-	{
-		AfxMessageBox(L"Длина вала не должна быть меньше размера муфты");
-		return;
-	}
-	else
-	{
-		pDoc->lV = ValL;
-		pDoc->Val_Check = true;
-		CDialogEx::OnOK();
-	}
+    // Проверка: Длина вала должна быть >= размера муфты/2 + 10
+    if (pDoc->L / 2 + 10 > ValL)
+    {
+        AfxMessageBox(L"Длина вала не должна быть меньше размера муфты");
+        return;
+    }
+
+    // Проверка: Минимальное значение L = 28
+    const double MIN_L_VALUE = 28.0;
+    if (ValL < MIN_L_VALUE)
+    {
+        CString errorMsg;
+        errorMsg.Format(L"Значение L не может быть меньше %.0f!", MIN_L_VALUE);
+        AfxMessageBox(errorMsg, MB_ICONEXCLAMATION | MB_OK);
+        return;
+    }
+
+    pDoc->lV = ValL;
+    pDoc->Val_Check = true;
+    CDialogEx::OnOK();  // Теперь закрываем только если все ОК
 }
 
 BOOL CObjectVal::OnInitDialog()
@@ -48,9 +59,9 @@ BOOL CObjectVal::OnInitDialog()
 	CDialogEx::OnInitDialog();
 
 	// TODO:  Добавить дополнительную инициализацию
-	CKursachApp* pApp = (CKursachApp*)AfxGetApp();
+	CKursachApp* pApp =      (CKursachApp*)AfxGetApp();
 	CMainFrame* pMainFrame = (CMainFrame*)pApp->GetMainWnd();
-	CKursachDoc* pDoc = (CKursachDoc*)pMainFrame->GetActiveDocument();
+	CKursachDoc* pDoc =      (CKursachDoc*)pMainFrame->GetActiveDocument();
 	if (pDoc->lV != 0)
 	{
 		ValL = pDoc->lV;

@@ -53,6 +53,13 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
 	if (!CFrameWnd::PreCreateWindow(cs))
 		return FALSE;
+	cs.style = WS_OVERLAPPED | WS_SYSMENU | WS_BORDER;
+
+	cs.cy = 300;
+	cs.cx = 600;
+	cs.y =  ((cs.cy * 3) - cs.cy) / 2;
+	cs.x =  ((cs.cx * 3) - cs.cx) / 2;
+
 	return TRUE;
 }
 

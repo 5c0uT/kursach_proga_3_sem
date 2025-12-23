@@ -3,9 +3,9 @@
 IMPLEMENT_DYNAMIC(CKursachApp, CWinApp)
 
 BEGIN_MESSAGE_MAP(CKursachApp, CWinApp)
-	ON_COMMAND(ID_APP_ABOUT, &CKursachApp::OnAppAbout)
-	ON_COMMAND(ID_FILE_NEW, &CWinApp::OnFileNew)
-	ON_COMMAND(ID_FILE_OPEN, &CWinApp::OnFileOpen)
+	ON_COMMAND(ID_APP_ABOUT,        &CKursachApp::OnAppAbout)
+	ON_COMMAND(ID_FILE_NEW,         &CWinApp::OnFileNew)
+	ON_COMMAND(ID_FILE_OPEN,        &CWinApp::OnFileOpen)
 	ON_COMMAND(ID_FILE_PRINT_SETUP, &CWinApp::OnFilePrintSetup)
 END_MESSAGE_MAP()
 
@@ -40,15 +40,18 @@ BOOL CKursachApp::InitInstance()
 	CSingleDocTemplate* pDocTemplate;
 	pDocTemplate = new CSingleDocTemplate(
 		IDR_MAINFRAME,
+
 		RUNTIME_CLASS(CKursachDoc),
 		RUNTIME_CLASS(CMainFrame),
 		RUNTIME_CLASS(CKursachView));
 	if (!pDocTemplate)
 		return FALSE;
+
 	AddDocTemplate(pDocTemplate);
 
 	CMFCToolBar::m_bExtCharTranslation = TRUE;
 	CCommandLineInfo cmdInfo;
+
 	ParseCommandLine(cmdInfo);
 
 	if (!ProcessShellCommand(cmdInfo))

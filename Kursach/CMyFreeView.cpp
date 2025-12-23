@@ -3,6 +3,9 @@
 IMPLEMENT_DYNCREATE(CMyFreeView, CTreeView)
 
 CMyFreeView::CMyFreeView()
+	: m_pDoc(nullptr)
+	, m_hMufta(nullptr), m_hVal(nullptr),   m_hShponka(nullptr)
+	, m_hVint(nullptr),  m_hKolco(nullptr), m_hSborka(nullptr)
 {
 }
 
@@ -73,15 +76,10 @@ void CMyFreeView::OnLButtonUp(UINT nFlags, CPoint point)
 		tree.SelectItem(m_hShponka);
 	}
 	tree.GetItemRect(m_hVint, &rc, false);
-	if (rc.PtInRect(point))
-	{
-		tree.SelectItem(m_hVint);
-	}
+	if (rc.PtInRect(point)) return;
+
 	tree.GetItemRect(m_hKolco, &rc, false);
-	if (rc.PtInRect(point))
-	{
-		tree.SelectItem(m_hKolco);
-	}
+	if (rc.PtInRect(point)) return;
 
 	if (tree.GetSelectedItem() == m_hSborka)
 	{
@@ -177,6 +175,6 @@ void CMyFreeView::OnLButtonDblClk(UINT nFlags, CPoint point)
 	}
 	else
 	{
-		AfxMessageBox(L"Для начала укажите параметры муфты");
+		AfxMessageBox(L"Стандарное изделие - нельзя менять размеры");
 	}
 }
