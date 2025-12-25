@@ -49,11 +49,11 @@ bool CVintBuilder::Build(double d1, double p, double VintH, double VintW,
 void CVintBuilder::CreateMainBody()
 {
 	// Эскиз для стержня винта
-	ksEntityPtr pRodSketch = m_pPart->NewEntity(o3d_sketch);
+	ksEntityPtr pRodSketch =                      m_pPart->NewEntity(o3d_sketch);
 	ksSketchDefinitionPtr pRodSketchDef = pRodSketch->GetDefinition();
 	pRodSketchDef->SetPlane(m_pPart->GetDefaultEntity(o3d_planeXOY));
 	pRodSketch->Create();
-	ksDocument2DPtr p2DRod = pRodSketchDef->BeginEdit();
+	ksDocument2DPtr p2DRod =                      pRodSketchDef->BeginEdit();
 
 	// Создаем круг для стержня
 	p2DRod->ksCircle(0, 0, m_d1 / 2, 1);
@@ -61,38 +61,38 @@ void CVintBuilder::CreateMainBody()
 	pRodSketchDef->EndEdit();
 
 	// Выдавливаем стержень
-	ksEntityPtr pRodExtrude = m_pPart->NewEntity(o3d_bossExtrusion);
+	ksEntityPtr pRodExtrude =                     m_pPart->NewEntity(o3d_bossExtrusion);
 	ksBossExtrusionDefinitionPtr pRodExtrudeDef = pRodExtrude->GetDefinition();
 	pRodExtrudeDef->SetSketch(pRodSketch);
 	pRodExtrudeDef->SetSideParam(TRUE, etBlind, m_VintLenght, 0, FALSE);
 	pRodExtrude->Create();
 
-	ksEntityCollectionPtr allEdges = m_pPart->EntityCollection(o3d_edge);
+	ksEntityCollectionPtr allEdges =              m_pPart->EntityCollection(o3d_edge);
 
 	// ПЕРВАЯ ФАСКА 0.3 мм (один конец)
-	ksEntityPtr pChamfer1 = m_pPart->NewEntity(o3d_chamfer);
-	ksChamferDefinitionPtr pChamferDef1 = pChamfer1->GetDefinition();
+	ksEntityPtr pChamfer1 =                       m_pPart->NewEntity(o3d_chamfer);
+	ksChamferDefinitionPtr pChamferDef1 =         pChamfer1->GetDefinition();
 	pChamferDef1->SetChamferParam(true, 0.3, 0.3);
 
-	ksEntityCollectionPtr chamferEdges1 = pChamferDef1->array();
+	ksEntityCollectionPtr chamferEdges1 =         pChamferDef1->array();
 	chamferEdges1->Clear();
 
 	// ВТОРАЯ ФАСКА 1.75 мм (противоположный конец)
-	ksEntityPtr pChamfer2 = m_pPart->NewEntity(o3d_chamfer);
-	ksChamferDefinitionPtr pChamferDef2 = pChamfer2->GetDefinition();
+	ksEntityPtr pChamfer2 =                       m_pPart->NewEntity(o3d_chamfer);
+	ksChamferDefinitionPtr pChamferDef2 =         pChamfer2->GetDefinition();
 	pChamferDef2->SetChamferParam(true, 1.75, 1.75);
 
-	ksEntityCollectionPtr chamferEdges2 = pChamferDef2->array();
+	ksEntityCollectionPtr chamferEdges2 =         pChamferDef2->array();
 	chamferEdges2->Clear();
 
 	// Ищем все ребра стержня и распределяем по концам
 	for (int i = 0; i < allEdges->GetCount(); i++) {
-		ksEntityPtr edge = allEdges->GetByIndex(i);
-		ksEdgeDefinitionPtr edgeDef = edge->GetDefinition();
+		ksEntityPtr edge =                        allEdges->GetByIndex(i);
+		ksEdgeDefinitionPtr edgeDef =             edge->GetDefinition();
 
 		if (edgeDef->GetOwnerEntity() == pRodExtrude && edgeDef->IsCircle())
 		{
-			ksVertexDefinitionPtr v1 = edgeDef->GetVertex(true);
+			ksVertexDefinitionPtr v1 =            edgeDef->GetVertex(true);
 			double x, y, z;
 			v1->GetPoint(&x, &y, &z);
 
@@ -120,7 +120,7 @@ void CVintBuilder::CreateMainBody()
 
 void CVintBuilder::CreateThread()
 {
-	ksEntityPtr pThread = m_pPart->NewEntity(o3d_thread);
+	ksEntityPtr pThread =              m_pPart->NewEntity(o3d_thread);
 	ksThreadDefinitionPtr pThreadDef = pThread->GetDefinition();
 
 	// Настройка параметров резьбы
@@ -133,11 +133,11 @@ void CVintBuilder::CreateThread()
 
 	// Ищем цилиндрическую грань стержня для нанесения резьбы
 	ksEntityCollectionPtr faceCollection = m_pPart->EntityCollection(o3d_face);
-	ksEntityPtr threadFace = nullptr;
+	ksEntityPtr threadFace =               nullptr;
 
 	for (int i = 0; i < faceCollection->GetCount(); i++)
 	{
-		ksEntityPtr face = faceCollection->GetByIndex(i);
+		ksEntityPtr face =            faceCollection->GetByIndex(i);
 		ksFaceDefinitionPtr faceDef = face->GetDefinition();
 
 		// Проверяем, что грань принадлежит нашему выдавливанию стержня и является цилиндрической
@@ -158,19 +158,19 @@ void CVintBuilder::CreateThread()
 void CVintBuilder::CreateSlot()
 {
 	// Смещаем плоскость для создания шлица
-	ksEntityPtr pPlaneOffset = m_pPart->NewEntity(o3d_planeOffset);
+	ksEntityPtr pPlaneOffset =                   m_pPart->NewEntity(o3d_planeOffset);
 	ksPlaneOffsetDefinitionPtr pPlaneOffsetDef = pPlaneOffset->GetDefinition();
-	pPlaneOffsetDef->direction = false;
-	pPlaneOffsetDef->offset = m_d1 / 2;
+	pPlaneOffsetDef->direction =                 false;
+	pPlaneOffsetDef->offset =                    m_d1 / 2;
 	pPlaneOffsetDef->SetPlane(m_pPart->GetDefaultEntity(o3d_planeXOZ));
 	pPlaneOffset->Create();
 
 	// Эскиз для шлица
-	ksEntityPtr pSlotSketch = m_pPart->NewEntity(o3d_sketch);
-	ksSketchDefinitionPtr pSlotSketchDef = pSlotSketch->GetDefinition();
+	ksEntityPtr pSlotSketch =                    m_pPart->NewEntity(o3d_sketch);
+	ksSketchDefinitionPtr pSlotSketchDef =       pSlotSketch->GetDefinition();
 	pSlotSketchDef->SetPlane(pPlaneOffset);
 	pSlotSketch->Create();
-	ksDocument2DPtr p2DSlot = pSlotSketchDef->BeginEdit();
+	ksDocument2DPtr p2DSlot =                    pSlotSketchDef->BeginEdit();
 
 	// Создаем прямоугольник для шлица
 	double slotHalfWidth = m_VintH / 2;
@@ -182,7 +182,7 @@ void CVintBuilder::CreateSlot()
 	pSlotSketchDef->EndEdit();
 
 	// Вырезаем шлиц
-	ksEntityPtr pSlotCut = m_pPart->NewEntity(o3d_cutExtrusion);
+	ksEntityPtr pSlotCut =                    m_pPart->NewEntity(o3d_cutExtrusion);
 	ksCutExtrusionDefinitionPtr pSlotCutDef = pSlotCut->GetDefinition();
 	pSlotCutDef->SetSketch(pSlotSketch);
 	pSlotCutDef->SetSideParam(FALSE, etBlind, m_d1, 0, FALSE);

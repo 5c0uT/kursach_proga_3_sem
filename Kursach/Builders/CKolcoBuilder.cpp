@@ -45,11 +45,11 @@ bool CKolcoBuilder::Build(double b1, double D, double D1, const CString& savePat
 void CKolcoBuilder::CreateMainBody()
 {
 	// Создаем эскиз профиля кольца
-	ksEntityPtr pSketchRing = m_pPart->NewEntity(o3d_sketch);
+	ksEntityPtr pSketchRing =              m_pPart->NewEntity(o3d_sketch);
 	ksSketchDefinitionPtr pSketchRingDef = pSketchRing->GetDefinition();
 	pSketchRingDef->SetPlane(m_pPart->GetDefaultEntity(o3d_planeXOY));
 	pSketchRing->Create();
-	ksDocument2DPtr p2DDocRing = pSketchRingDef->BeginEdit();
+	ksDocument2DPtr p2DDocRing =           pSketchRingDef->BeginEdit();
 
 	double rect[4][2];
 

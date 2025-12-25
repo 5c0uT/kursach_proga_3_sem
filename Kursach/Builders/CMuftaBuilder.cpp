@@ -56,11 +56,11 @@ bool CMuftaBuilder::Build(double d, double dt2, double b, double b1, double d1,
 void CMuftaBuilder::CreateMainBody()
 {
 	// Создаем эскиз профиля муфты
-	ksEntityPtr pSketch = m_pPart->NewEntity(o3d_sketch);
+	ksEntityPtr pSketch =              m_pPart->NewEntity(o3d_sketch);
 	ksSketchDefinitionPtr pSketchDef = pSketch->GetDefinition();
 	pSketchDef->SetPlane(m_pPart->GetDefaultEntity(o3d_planeXOY));
 	pSketch->Create();
-	ksDocument2DPtr p2DDoc = pSketchDef->BeginEdit();
+	ksDocument2DPtr p2DDoc =           pSketchDef->BeginEdit();
 
 	// Точки профиля муфты
 	double point[4][2];
@@ -108,10 +108,10 @@ void CMuftaBuilder::CreateKeyway()
 	ksDocument2DPtr p2DDocKeyway = pSketchKeywayDef->BeginEdit();
 
 	// Координаты прямоугольника по всей длине вала
-	double leftX = -m_b / 2.0;              // левая граница
+	double leftX =  -m_b / 2.0;               // левая граница
 	double rightX = m_b / 2.0;               // правая граница
 	double startY = 0;                       // начинаем от центра
-	double endY = m_L;                       // до конца трубы
+	double endY =   m_L;                       // до конца трубы
 
 	// Создание прямоугольника вдоль вала
 	p2DDocKeyway->ksLineSeg(startY, leftX,  endY,   leftX,  1);    // левая грань
@@ -122,7 +122,7 @@ void CMuftaBuilder::CreateKeyway()
 	pSketchKeywayDef->EndEdit();
 
 	// Выдавливание шпоночного паза
-	ksEntityPtr pExtrudeKeyway = m_pPart->NewEntity(o3d_cutExtrusion);
+	ksEntityPtr pExtrudeKeyway =                    m_pPart->NewEntity(o3d_cutExtrusion);
 	ksCutExtrusionDefinitionPtr pExtrudeKeywayDef = pExtrudeKeyway->GetDefinition();
 	pExtrudeKeywayDef->SetSketch(pSketchKeyway);
 	pExtrudeKeywayDef->SetSideParam(FALSE, etBlind, m_dt2 - (m_d / 2), 0, FALSE);
@@ -136,7 +136,7 @@ void CMuftaBuilder::CreateThreadedHole()
 	ksPlaneOffsetDefinitionPtr pPlaneDef1 = pPlane1->GetDefinition();
 
 	pPlaneDef1->direction = false;
-	pPlaneDef1->offset = m_D / 2;
+	pPlaneDef1->offset =    m_D / 2;
 	pPlaneDef1->SetPlane(m_pPart->GetDefaultEntity(o3d_planeXOY));
 	pPlane1->Create();
 
@@ -154,8 +154,47 @@ void CMuftaBuilder::CreateThreadedHole()
 	ksEntityPtr pExtrudeThreadedHole = m_pPart->NewEntity(o3d_cutExtrusion);
 	ksCutExtrusionDefinitionPtr pExtrudeDefThreadedHole = pExtrudeThreadedHole->GetDefinition();
 	pExtrudeDefThreadedHole->SetSketch(pSketchThreadedHole);
-	pExtrudeDefThreadedHole->SetSideParam(FALSE, etBlind, m_D / 2, 0, FALSE); //указываем проверка выреза до центра
+	pExtrudeDefThreadedHole->SetSideParam(FALSE, etBlind, (m_D - m_d) / 2, 0, FALSE); //указываем проверка выреза до центра
 	pExtrudeThreadedHole->Create();
+
+	ksEntityCollectionPtr allEdgesAfterThread = m_pPart->EntityCollection(o3d_edge);
+
+	ksEntityPtr pChamferThread = m_pPart->NewEntity(o3d_chamfer);
+	ksChamferDefinitionPtr pChamferThreadDef = pChamferThread->GetDefinition();
+	pChamferThreadDef->SetChamferParam(false, m_c1, m_c1);
+
+	ksEntityCollectionPtr chamferThreadEdges = pChamferThreadDef->array();
+	chamferThreadEdges->Clear();
+	for (int i = 0; i < allEdgesAfterThread->GetCount(); i++)
+	{
+		ksEntityPtr edge = allEdgesAfterThread->GetByIndex(i);
+		ksEdgeDefinitionPtr edgeDef = edge->GetDefinition();
+
+		if (edgeDef->GetOwnerEntity() == pExtrudeThreadedHole)
+		{
+			chamferThreadEdges->Add(edge);
+		}
+	}
+
+	if (chamferThreadEdges->GetCount() > 0) {
+		pChamferThread->Create();
+	}
+
+	ksEntityPtr pSketchThreadedHole1 = m_pPart->NewEntity(o3d_sketch);
+	ksSketchDefinitionPtr pSketchDefThreadedHole1 = pSketchThreadedHole1->GetDefinition();
+	pSketchDefThreadedHole1->SetPlane(pPlane1); // Используем вторую плоскость
+	pSketchThreadedHole1->Create();
+	ksDocument2DPtr p2DDocThreadedHole1 = pSketchDefThreadedHole1->BeginEdit();
+
+	p2DDocThreadedHole1->ksCircle(m_l, 0, (m_d1 - 1) / 2.0, 1);// вычитание 1 т.к отверстие м6 имеет радиус 5
+
+	pSketchDefThreadedHole1->EndEdit();
+
+	ksEntityPtr pExtrudeThreadedHole1 = m_pPart->NewEntity(o3d_cutExtrusion);
+	ksCutExtrusionDefinitionPtr pExtrudeDefThreadedHole1 = pExtrudeThreadedHole1->GetDefinition();
+	pExtrudeDefThreadedHole1->SetSketch(pSketchThreadedHole1);
+	pExtrudeDefThreadedHole1->SetSideParam(FALSE, etBlind, m_D / 2, 0, FALSE); //указываем проверка выреза до центра
+	pExtrudeThreadedHole1->Create();
 
 	// Создание резьбы на отверстии
 	ksEntityPtr Thread1 = m_pPart->NewEntity(o3d_thread);
@@ -195,11 +234,11 @@ void CMuftaBuilder::CreateThreadedHole()
 void CMuftaBuilder::CreateRingGroove()
 {
 	// Создаем эскиз для выреза под кольцо
-	ksEntityPtr pSketchRectCut = m_pPart->NewEntity(o3d_sketch);
+	ksEntityPtr pSketchRectCut =              m_pPart->NewEntity(o3d_sketch);
 	ksSketchDefinitionPtr pSketchRectCutDef = pSketchRectCut->GetDefinition();
 	pSketchRectCutDef->SetPlane(m_pPart->GetDefaultEntity(o3d_planeXOY));
 	pSketchRectCut->Create();
-	ksDocument2DPtr p2DDocRectCut = pSketchRectCutDef->BeginEdit();
+	ksDocument2DPtr p2DDocRectCut =           pSketchRectCutDef->BeginEdit();
 
 	double rectPoint[4][2];
 
@@ -247,7 +286,7 @@ void CMuftaBuilder::CreateChamfers()
 	// Перебираем все ребра
 	for (int i = 0; i < allEdges->GetCount(); i++)
 	{
-		ksEntityPtr edge = allEdges->GetByIndex(i);
+		ksEntityPtr edge =            allEdges->GetByIndex(i);
 		ksEdgeDefinitionPtr edgeDef = edge->GetDefinition();
 
 		// Проверяем, является ли ребро круговым
@@ -273,7 +312,7 @@ void CMuftaBuilder::CreateFillets()
 
 	for (int i = 0; i < updatedEdges->GetCount(); i++)
 	{
-		ksEntityPtr ed = updatedEdges->GetByIndex(i);
+		ksEntityPtr ed =          updatedEdges->GetByIndex(i);
 		ksEdgeDefinitionPtr def = ed->GetDefinition();
 
 		// Проверяем, что ребро принадлежит операции выдавливания шпоночного паза

@@ -3,19 +3,19 @@
 using json = nlohmann::json;
 
 // Инициализация глобальных переменных
-MuftaVarTable  muftaVarTable = { nullptr, 0, 0 };
-MuftaNameArray name_d =        { nullptr, 0 };
-MuftaNameArray name_dt2 =      { nullptr, 0 };
-MuftaNameArray name_b =        { nullptr, 0 };
-MuftaNameArray name_b1 =       { nullptr, 0 };
-MuftaNameArray name_d1 =       { nullptr, 0 };
-MuftaNameArray name_D =        { nullptr, 0 };
-MuftaNameArray name_D1 =       { nullptr, 0 };
-MuftaNameArray name_L =        { nullptr, 0 };
-MuftaNameArray name_l =        { nullptr, 0 };
-MuftaNameArray name_r =        { nullptr, 0 };
-MuftaNameArray name_c =        { nullptr, 0 };
-MuftaNameArray name_c1 =       { nullptr, 0 };
+MuftaVarTable  muftaVarTable = {nullptr, 0, 0 };
+MuftaNameArray name_d =        {nullptr, 0};
+MuftaNameArray name_dt2 =      {nullptr, 0};
+MuftaNameArray name_b =        {nullptr, 0};
+MuftaNameArray name_b1 =       {nullptr, 0};
+MuftaNameArray name_d1 =       {nullptr, 0};
+MuftaNameArray name_D =        {nullptr, 0};
+MuftaNameArray name_D1 =       {nullptr, 0};
+MuftaNameArray name_L =        {nullptr, 0};
+MuftaNameArray name_l =        {nullptr, 0};
+MuftaNameArray name_r =        {nullptr, 0};
+MuftaNameArray name_c =        {nullptr, 0};
+MuftaNameArray name_c1 =       {nullptr, 0};
 
 // Вспомогательная функция для освобождения массива строк
 void FreeNameArray(MuftaNameArray& arr) 
@@ -80,10 +80,12 @@ int LoadMuftaDataFromJson(const char* filename)
         auto& nameArrays = muftaData["NameArrays"];
 
         // Вспомогательная лямбда для загрузки массива имен
-        auto loadNameArray = [](MuftaNameArray& arr, const json& jArray) {
+        auto loadNameArray = [](MuftaNameArray& arr, const json& jArray) 
+            {
             arr.count = jArray.size();
             arr.data = (const char**)malloc(arr.count * sizeof(const char*));
-            for (size_t i = 0; i < arr.count; i++) {
+            for (size_t i = 0; i < arr.count; i++) 
+            {
                 std::string str = jArray[i].get<std::string>();
                 arr.data[i] = _strdup(str.c_str());
             }
@@ -119,7 +121,8 @@ int LoadMuftaDataFromJson(const char* filename)
 void FreeMuftaData(void) {
     // Освобождаем таблицу Var
     if (muftaVarTable.data) {
-        for (size_t i = 0; i < muftaVarTable.rows; i++) {
+        for (size_t i = 0; i < muftaVarTable.rows; i++) 
+        {
             free(muftaVarTable.data[i]);
         }
         free(muftaVarTable.data);

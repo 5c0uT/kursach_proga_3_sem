@@ -90,20 +90,108 @@ void CKursachView::OnInitialUpdate()
 	CView::OnInitialUpdate();
 
 	Start.Create(_T("Построить"), WS_CHILD | WS_VISIBLE,
-		CRect(0, 0, 120, 30), this, IDC_START);
+		         CRect(0, 0, 120, 30), this, IDC_START);
 	Start.CenterWindow();
+}
+CString CKursachView::GetProjectRootPath()
+{
+    TCHAR szModulePath[MAX_PATH];
+    GetModuleFileName(NULL, szModulePath, MAX_PATH);
+
+    CString strPath = szModulePath;
+
+    // Удаляем имя файла (Debug/Kursach.exe > Debug)
+    int nLastSlash = strPath.ReverseFind(_T('\\'));
+    if (nLastSlash != -1)
+        strPath = strPath.Left(nLastSlash);
+
+    // Удаляем Debug/Release папку (Debug > x64)
+    nLastSlash = strPath.ReverseFind(_T('\\'));
+    if (nLastSlash != -1)
+        strPath = strPath.Left(nLastSlash);
+
+    // Удаляем x64/Win32 папку (x64 > Kursach)
+    nLastSlash = strPath.ReverseFind(_T('\\'));
+    if (nLastSlash != -1)
+        strPath = strPath.Left(nLastSlash);
+
+    // Добавляем финальный слеш
+    if (strPath[strPath.GetLength() - 1] != _T('\\'))
+        strPath += _T("\\");
+
+    return strPath;
+}
+
+// Проверка существования директории
+BOOL CKursachView::DirectoryExists(const CString& dirPath)
+{
+    DWORD dwAttrib = GetFileAttributes(dirPath);
+    return (dwAttrib != INVALID_FILE_ATTRIBUTES && (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+}
+
+// Валидация и создание необходимых директорий
+BOOL CKursachView::ValidateAndCreateDirectories(const CString& rootPath)
+{
+    // Список необходимых поддиректорий
+    CStringArray requiredDirs;
+    requiredDirs.Add(rootPath + _T("KompasAssembly"));
+    requiredDirs.Add(rootPath + _T("Kursach"));
+    requiredDirs.Add(rootPath + _T("nlohmann"));
+    requiredDirs.Add(rootPath + _T("x64"));
+
+    // Проверяем и создаём директории
+    for (int i = 0; i < requiredDirs.GetSize(); i++)
+    {
+        CString dirPath = requiredDirs[i];
+
+        if (!DirectoryExists(dirPath))
+        {
+            if (!CreateDirectory(dirPath, NULL))
+            {
+                DWORD dwError = GetLastError();
+                if (dwError != ERROR_ALREADY_EXISTS)
+                {
+                    CString errMsg;
+                    errMsg.Format(_T("Ошибка при создании директории:\n%s\nОшибка: %d"), dirPath, dwError);
+                    AfxMessageBox(errMsg);
+                    return FALSE;
+                }
+            }
+        }
+    }
+
+    // Проверяем наличие файла .sln
+    CString slnPath = rootPath + _T("Kursach.sln");
+    if (!PathFileExists(slnPath))
+    {
+        CString warnMsg;
+        warnMsg.Format(_T("Внимание: файл проекта не найден:\n%s"), slnPath);
+        AfxMessageBox(warnMsg);
+    }
+
+    return TRUE;
 }
 
 void CKursachView::StartKompas()
 {
-	CKursachApp* pApp = (CKursachApp*)AfxGetApp();
+	CKursachApp* pApp =      (CKursachApp*)AfxGetApp();
 	CMainFrame* pMainFrame = (CMainFrame*)pApp->GetMainWnd();
-	CKursachDoc* pDoc0 = (CKursachDoc*)pMainFrame->GetActiveDocument();
+	CKursachDoc* pDoc0 =     (CKursachDoc*)pMainFrame->GetActiveDocument();
 
-	BeginWaitCursor();
+    // Получаем корневую папку проекта
+    CString rootPath = GetProjectRootPath();
 
-	// Получаем/создаём COM-объект Kompas.Application.5
-	CComPtr<IUnknown> pKompasAppUnk = nullptr;
+    // Проверяем и создаём необходимые директории
+    if (!ValidateAndCreateDirectories(rootPath))
+    {
+        AfxMessageBox(_T("Не удалось инициализировать рабочие директории!"));
+        return;
+    }
+
+    BeginWaitCursor();
+
+    // Получаем/создаём COM-объект Kompas.Application.5
+    CComPtr<IUnknown> pKompasAppUnk = nullptr;
 	if (!pKompasApp5)
 	{
 		CLSID InvAppClsid;
@@ -137,54 +225,55 @@ void CKursachView::StartKompas()
 
 void CKursachView::CreateDetails()
 {
-    CKursachApp* pApp = (CKursachApp*)AfxGetApp();
+    CKursachApp* pApp =      (CKursachApp*)AfxGetApp();
     CMainFrame* pMainFrame = (CMainFrame*)pApp->GetMainWnd();
-    CKursachDoc* pDoc0 = (CKursachDoc*)pMainFrame->GetActiveDocument();
+    CKursachDoc* pDoc0 =     (CKursachDoc*)pMainFrame->GetActiveDocument();
 
     if (pDoc0->Mufta_Check != false && pDoc0->Shponka_Check != false && pDoc0->Val_Check)
     {
-        double d = pDoc0->d;
-        double dt2 = pDoc0->dt2;
-        double b = pDoc0->b;
-        double b1 = pDoc0->b1;
-        double d1 = pDoc0->d1;
-        double D = pDoc0->D;
-        double D1 = pDoc0->D1;
-        double L = pDoc0->L;
-        double l = pDoc0->l;
-        double r = pDoc0->r;
-        double c = pDoc0->c;
-        double c1 = pDoc0->c1;
-        double lV = pDoc0->lV;
-        double eps = 1.0;
-        double ShponkaH = pDoc0->ShponkaH;
-        double ShponkaW = pDoc0->ShponkaW;
-        double ShponkaR = 0.2;
-        double p = 0;
-        double VintH = 0;
-        double VintW = 0;
+        double d =          pDoc0->d;
+        double dt2 =        pDoc0->dt2;
+        double b =          pDoc0->b;
+        double b1 =         pDoc0->b1;
+        double d1 =         pDoc0->d1;
+        double D =          pDoc0->D;
+        double D1 =         pDoc0->D1;
+        double L =          pDoc0->L;
+        double l =          pDoc0->l;
+        double r =          pDoc0->r;
+        double c =          pDoc0->c;
+        double c1 =         pDoc0->c1;
+        double lV =         pDoc0->lV;
+        double eps =        1.0;
+        double ShponkaH =   pDoc0->ShponkaH;
+        double ShponkaW =   pDoc0->ShponkaW;
+        double ShponkaR =   0.2;
+        double p =          0;
+        double VintH =      0;
+        double VintW =      0;
         double VintLenght = pDoc0->D / 2 - pDoc0->d / 2;
 
         if (pDoc0->d1 == 4)
         {
-            p = 0.7;
+            p =     0.7;
             VintH = 0.6;
             VintW = 1.42;
         }
         else
         {
-            p = 1.0;
+            p =     1.0;
             VintH = 1.0;
             VintW = 2.0;
         }
 
         if ((D != 0) && (ShponkaH != 0) && (lV != 0))
         {
-            CString basePath = _T("C:\\KompasAssembly\\");
+            // Получаем корневой путь
+            CString basePath = GetProjectRootPath() + _T("KompasAssembly\\");
 
             // 1. Создаем муфту
             CMuftaBuilder muftaBuilder(pKompasApp5);
-            if (!muftaBuilder.Build(d, dt2, b, b1, d1, D, D1, L, l, r, c, c1, eps, _T("C:\\KompasAssembly\\Mufta.m3d")))
+            if (!muftaBuilder.Build(d, dt2, b, b1, d1, D, D1, L, l, r, c, c1, eps, basePath + _T("Mufta.m3d")))
             {
                 AfxMessageBox(L"Ошибка при создании муфты!");
                 return;
@@ -192,7 +281,7 @@ void CKursachView::CreateDetails()
 
             // 2. Создаем вал
             CValBuilder valBuilder(pKompasApp5);
-            if (!valBuilder.Build(d, dt2, b, l, lV, ShponkaH, ShponkaW, c, eps, _T("C:\\KompasAssembly\\Val.m3d")))
+            if (!valBuilder.Build(d, dt2, b, l, lV, ShponkaH, ShponkaW, c, eps, basePath + _T("Val.m3d")))
             {
                 AfxMessageBox(L"Ошибка при создании вала!");
                 return;
@@ -200,7 +289,7 @@ void CKursachView::CreateDetails()
 
             // 3. Создаем шпонку
             CShponkaBuilder shponkaBuilder(pKompasApp5);
-            if (!shponkaBuilder.Build(b, ShponkaH, ShponkaW, ShponkaR, _T("C:\\KompasAssembly\\Shponka.m3d")))
+            if (!shponkaBuilder.Build(b, ShponkaH, ShponkaW, ShponkaR, basePath + _T("Shponka.m3d")))
             {
                 AfxMessageBox(L"Ошибка при создании шпонки!");
                 return;
@@ -208,23 +297,23 @@ void CKursachView::CreateDetails()
 
             // 4. Создаем винт
             CVintBuilder vintBuilder(pKompasApp5);
-            if (!vintBuilder.Build(d1, p, VintH, VintW, VintLenght, eps, _T("C:\\KompasAssembly\\Vint.m3d")))
+            if (!vintBuilder.Build(d1, p, VintH, VintW, VintLenght, eps, basePath + _T("Vint.m3d")))
             {
                 AfxMessageBox(L"Ошибка при создании винта!");
                 return;
             }
 
-            // 5. Создаем кольцо (если нужно)
+            // 5. Создаем кольцо
             CString kolcoPath = _T("");
             if (b1 != 0)
             {
                 CKolcoBuilder kolcoBuilder(pKompasApp5);
-                if (!kolcoBuilder.Build(b1, D, D1, _T("C:\\KompasAssembly\\Kolco.m3d")))
+                if (!kolcoBuilder.Build(b1, D, D1, basePath + _T("Kolco.m3d")))
                 {
                     AfxMessageBox(L"Ошибка при создании кольца!");
                     return;
                 }
-                kolcoPath = _T("C:\\KompasAssembly\\Kolco.m3d");
+                kolcoPath = basePath + _T("Kolco.m3d");
             }
 
             // 6. Создаем сборку
@@ -244,7 +333,7 @@ void CKursachView::CreateDetails()
                 return;
             }
 
-            AfxMessageBox(L"Все детали и сборка успешно созданы!", MB_OK);
+            MessageBox(L"Все детали и сборка успешно созданы!", MB_OK);
         }
         else
         {

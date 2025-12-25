@@ -36,12 +36,12 @@ public:
 	double r =           0;
 	double c =           0;
 	double c1 =          0;
-	double lV =          0; //длина вала
-	double eps =         1; //точность для маркеров  думай
+	double lV =          0; // длина вала
+	double eps =         1; // точность для маркеров  думай
 	double ShponkaH =    0; // высота шпонки
-	double ShponkaW =    0; //длина шпонки
-	double ShponkaR =    0; //скругление
-	double p =           0; //шаг резьбы
+	double ShponkaW =    0; // длина шпонки
+	double ShponkaR =    0; // скругление
+	double p =           0; // шаг резьбы
 	double VintLenght =  0; // длина винта
 	double VintH =       0; // ширина шлица
 	double VintW =       0; // глибина шлица

@@ -62,6 +62,9 @@
 #include "Builders/CKolcoBuilder.h"
 #include "Builders/CAssemblyBuilder.h"
 
+#include <shlwapi.h>
+#pragma comment(lib, "shlwapi.lib")
+
 using Kompas6API5::ksEntityPtr;
 using Kompas6API5::ksSketchDefinitionPtr;
 using Kompas6API5::ksDocument2DPtr;

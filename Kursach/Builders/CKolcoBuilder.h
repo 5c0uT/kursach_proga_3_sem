@@ -18,12 +18,12 @@ public:
 private:
     KompasObjectPtr m_pKompasApp;
     ksDocument3DPtr m_pDoc;
-    ksPartPtr m_pPart;
+    ksPartPtr       m_pPart;
 
     void CreateMainBody();
     void CreateFillets();
     void SetFaceMarkers();
 
     // Параметры
-    double m_b1, m_D, m_D1;
+    double          m_b1, m_D, m_D1;
 };

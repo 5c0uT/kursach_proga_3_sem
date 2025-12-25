@@ -59,8 +59,8 @@ void CShponkaBuilder::CreateMainBody()
 	p2DDoc->ksLineSeg(lineStartX, lineY, lineEndX, lineY, 1);
 
 	// 2. Создаем точку по центру отрезка на высоте ShponkaH
-	double midX = 0;                      // Центр по X
-	double midY = m_ShponkaH;             // Центр по Y
+	double midX =       0;                      // Центр по X
+	double midY =       m_ShponkaH;             // Центр по Y
 
 	// 3. Создаем дугу по трем точкам
 	p2DDoc->ksArcBy3Points(lineStartX, lineY, midX, midY, lineEndX, lineY, 1);
@@ -77,8 +77,8 @@ void CShponkaBuilder::CreateMainBody()
 
 void CShponkaBuilder::CreateChamfers()
 {
-	ksEntityCollectionPtr allEdges = m_pPart->EntityCollection(o3d_edge);
-	ksEntityPtr pChamfer = m_pPart->NewEntity(o3d_chamfer);
+	ksEntityCollectionPtr allEdges =     m_pPart->EntityCollection(o3d_edge);
+	ksEntityPtr pChamfer =               m_pPart->NewEntity(o3d_chamfer);
 	ksChamferDefinitionPtr pChamferDef = pChamfer->GetDefinition();
 	pChamferDef->SetChamferParam(true, m_ShponkaR, m_ShponkaR);
 

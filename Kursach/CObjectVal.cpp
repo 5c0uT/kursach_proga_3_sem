@@ -49,7 +49,7 @@ void CObjectVal::OnBnClickedOk()
         return;
     }
 
-    pDoc->lV = ValL;
+    pDoc->lV =        ValL;
     pDoc->Val_Check = true;
     CDialogEx::OnOK();  // Теперь закрываем только если все ОК
 }

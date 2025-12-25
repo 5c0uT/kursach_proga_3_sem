@@ -16,6 +16,9 @@ public:
 public:
 	void StartKompas();
 	void CreateDetails();
+	CString GetProjectRootPath();
+	BOOL ValidateAndCreateDirectories(const CString& rootPath);
+	BOOL DirectoryExists(const CString& dirPath);
 
 	// Переопределение
 public:

@@ -187,7 +187,6 @@
     <ClInclude Include="Builders\CAssemblyBuilder.h" />
     <ClInclude Include="Builders\CKolcoBuilder.h" />
     <ClInclude Include="Builders\CMuftaBuilder.h" />
-    <ClInclude Include="Builders\Config.h" />
     <ClInclude Include="Builders\CShponkaBuilder.h" />
     <ClInclude Include="Builders\CValBuilder.h" />
     <ClInclude Include="Builders\CVintBuilder.h" />
@@ -195,6 +194,7 @@
     <ClInclude Include="CObjectMufta.h" />
     <ClInclude Include="CObjectShponka.h" />
     <ClInclude Include="CObjectVal.h" />
+    <ClInclude Include="Config.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Kursach.h" />
     <ClInclude Include="Kursach_Doc.h" />

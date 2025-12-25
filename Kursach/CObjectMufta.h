@@ -12,8 +12,8 @@ public:
 	virtual ~CObjectMufta();
 
 	// Добавьте эти объявления:
-	static int LoadMuftaDataFromJson(const char* filename);
-	static void FreeMuftaData();
+	static int   LoadMuftaDataFromJson(const char* filename);
+	static void  FreeMuftaData();
 
 	// Данные диалогового окна
 #ifdef AFX_DESIGN_TIME
@@ -23,9 +23,9 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 
-	void FillComboboxes();
-	void FilterComboboxes(double, int);
-	void SetComboBoxValue(CComboBox& comboBox, double value);
+	void         FillComboboxes();
+	void         FilterComboboxes(double, int);
+	void         SetComboBoxValue(CComboBox& comboBox, double value);
 
 	DECLARE_MESSAGE_MAP()
 
@@ -43,8 +43,8 @@ public:
 	CComboBox Mufta_l;
 	CComboBox Mufta_r;
 
-	double d, dt2, b, b1, d1, D, D1, L, l, r, c, c1;
-	int m_currentRow = 0;
+	double    d, dt2, b, b1, d1, D, D1, L, l, r, c, c1;
+	int       m_currentRow = 0;
 	// Данные таблицы параметров муфты
 	// Теперь загружаются из JSON файла через структуры mufta_data.h
 	// Эти данные являются примером того, что хранится и записывается вовнутрь

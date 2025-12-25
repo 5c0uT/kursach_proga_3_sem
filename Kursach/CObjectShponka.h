@@ -16,7 +16,7 @@ public:
     void FilterComboboxes(double znach, int index);
     void SetComboBoxValue(CComboBox& comboBox, double value);
     
-    int m_currentRow = 0;
+    int    m_currentRow = 0;
     double ShponkaVar[11][3]{
         {3.0,  5.0,  13},
         {3.0,  6.5,  16},

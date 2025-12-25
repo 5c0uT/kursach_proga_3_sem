@@ -28,13 +28,13 @@ private:
     ksPartPtr       m_pVint;
     ksPartPtr       m_pKolco;
 
-    CString muftaPath;
-    CString valPath;
-    CString shponkaPath;
-    CString vintPath;
-    CString kolcoPath;
+    CString         muftaPath;
+    CString         valPath;
+    CString         shponkaPath;
+    CString         vintPath;
+    CString         kolcoPath;
 
-    double m_L;
-    double m_l;
-    bool   m_bHasKolco;
+    double          m_L;
+    double          m_l;
+    bool            m_bHasKolco;
 };

@@ -75,7 +75,7 @@
     <ClInclude Include="Builders\CAssemblyBuilder.h">
       <Filter>Builders</Filter>
     </ClInclude>
-    <ClInclude Include="Builders\Config.h">
+    <ClInclude Include="Config.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

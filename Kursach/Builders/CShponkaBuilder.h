@@ -19,12 +19,12 @@ public:
 private:
     KompasObjectPtr m_pKompasApp;
     ksDocument3DPtr m_pDoc;
-    ksPartPtr m_pPart;
+    ksPartPtr       m_pPart;
 
     void CreateMainBody();
     void CreateChamfers();
     void SetFaceMarkers();
 
     // Параметры
-    double m_b, m_ShponkaH, m_ShponkaW, m_ShponkaR;
+    double          m_b, m_ShponkaH, m_ShponkaW, m_ShponkaR;
 };

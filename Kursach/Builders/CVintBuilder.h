@@ -19,7 +19,7 @@ public:
 private:
     KompasObjectPtr m_pKompasApp;
     ksDocument3DPtr m_pDoc;
-    ksPartPtr m_pPart;
+    ksPartPtr       m_pPart;
 
     void CreateMainBody();
     void CreateThread();
@@ -28,5 +28,5 @@ private:
     void SetFaceMarkers();
 
     // Параметры
-    double m_d1, m_p, m_VintH, m_VintW, m_VintLenght;
+    double          m_d1, m_p, m_VintH, m_VintW, m_VintLenght;
 };

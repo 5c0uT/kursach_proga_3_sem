@@ -24,7 +24,7 @@ int CObjectMufta::LoadMuftaDataFromJson(const char* filename)
         auto& muftaData = j["MuftaData"];
         FreeMuftaData();
 
-        auto& varArray = muftaData["Var"];
+        auto& varArray =     muftaData["Var"];
         muftaVarTable.rows = varArray.size();
         if (muftaVarTable.rows == 0) 
         {
@@ -48,18 +48,18 @@ int CObjectMufta::LoadMuftaDataFromJson(const char* filename)
         {
             auto& dArray = nameArrays["d"];
             name_d.count = dArray.size();
-            name_d.data = (const char**)malloc(name_d.count * sizeof(const char*));
+            name_d.data =  (const char**)malloc(name_d.count * sizeof(const char*));
             for (size_t i = 0; i < name_d.count; i++)
             {
                 std::string str = dArray[i].get<std::string>();
-                name_d.data[i] = _strdup(str.c_str());
+                name_d.data[i] =  _strdup(str.c_str());
             }
         }
 
         {
             auto& dt2Array = nameArrays["dt2"];
             name_dt2.count = dt2Array.size();
-            name_dt2.data = (const char**)malloc(name_dt2.count * sizeof(const char*));
+            name_dt2.data =  (const char**)malloc(name_dt2.count * sizeof(const char*));
             for (size_t i = 0; i < name_dt2.count; i++)
             {
                 std::string str = dt2Array[i].get<std::string>();
@@ -70,7 +70,7 @@ int CObjectMufta::LoadMuftaDataFromJson(const char* filename)
         {
             auto& bArray = nameArrays["b"];
             name_b.count = bArray.size();
-            name_b.data = (const char**)malloc(name_b.count * sizeof(const char*));
+            name_b.data =  (const char**)malloc(name_b.count * sizeof(const char*));
             for (size_t i = 0; i < name_b.count; i++)
             {
                 std::string str = bArray[i].get<std::string>();
@@ -81,7 +81,7 @@ int CObjectMufta::LoadMuftaDataFromJson(const char* filename)
         {
             auto& b1Array = nameArrays["b1"];
             name_b1.count = b1Array.size();
-            name_b1.data = (const char**)malloc(name_b1.count * sizeof(const char*));
+            name_b1.data =  (const char**)malloc(name_b1.count * sizeof(const char*));
             for (size_t i = 0; i < name_b1.count; i++)
             {
                 std::string str = b1Array[i].get<std::string>();
@@ -92,7 +92,7 @@ int CObjectMufta::LoadMuftaDataFromJson(const char* filename)
         {
             auto& d1Array = nameArrays["d1"];
             name_d1.count = d1Array.size();
-            name_d1.data = (const char**)malloc(name_d1.count * sizeof(const char*));
+            name_d1.data =  (const char**)malloc(name_d1.count * sizeof(const char*));
             for (size_t i = 0; i < name_d1.count; i++)
             {
                 std::string str = d1Array[i].get<std::string>();
@@ -103,7 +103,7 @@ int CObjectMufta::LoadMuftaDataFromJson(const char* filename)
         {
             auto& DArray = nameArrays["D"];
             name_D.count = DArray.size();
-            name_D.data = (const char**)malloc(name_D.count * sizeof(const char*));
+            name_D.data =  (const char**)malloc(name_D.count * sizeof(const char*));
             for (size_t i = 0; i < name_D.count; i++) 
             {
                 std::string str = DArray[i].get<std::string>();
@@ -114,7 +114,7 @@ int CObjectMufta::LoadMuftaDataFromJson(const char* filename)
         {
             auto& D1Array = nameArrays["D1"];
             name_D1.count = D1Array.size();
-            name_D1.data = (const char**)malloc(name_D1.count * sizeof(const char*));
+            name_D1.data =  (const char**)malloc(name_D1.count * sizeof(const char*));
             for (size_t i = 0; i < name_D1.count; i++) 
             {
                 std::string str = D1Array[i].get<std::string>();
@@ -125,7 +125,7 @@ int CObjectMufta::LoadMuftaDataFromJson(const char* filename)
         {
             auto& LArray = nameArrays["L"];
             name_L.count = LArray.size();
-            name_L.data = (const char**)malloc(name_L.count * sizeof(const char*));
+            name_L.data =  (const char**)malloc(name_L.count * sizeof(const char*));
             for (size_t i = 0; i < name_L.count; i++) 
             {
                 std::string str = LArray[i].get<std::string>();
@@ -136,7 +136,7 @@ int CObjectMufta::LoadMuftaDataFromJson(const char* filename)
         {
             auto& lArray = nameArrays["l"];
             name_l.count = lArray.size();
-            name_l.data = (const char**)malloc(name_l.count * sizeof(const char*));
+            name_l.data =  (const char**)malloc(name_l.count * sizeof(const char*));
             for (size_t i = 0; i < name_l.count; i++)
             {
                 std::string str = lArray[i].get<std::string>();
@@ -147,7 +147,7 @@ int CObjectMufta::LoadMuftaDataFromJson(const char* filename)
         {
             auto& rArray = nameArrays["r"];
             name_r.count = rArray.size();
-            name_r.data = (const char**)malloc(name_r.count * sizeof(const char*));
+            name_r.data =  (const char**)malloc(name_r.count * sizeof(const char*));
             for (size_t i = 0; i < name_r.count; i++) 
             {
                 std::string str = rArray[i].get<std::string>();
@@ -158,7 +158,7 @@ int CObjectMufta::LoadMuftaDataFromJson(const char* filename)
         {
             auto& cArray = nameArrays["c"];
             name_c.count = cArray.size();
-            name_c.data = (const char**)malloc(name_c.count * sizeof(const char*));
+            name_c.data =  (const char**)malloc(name_c.count * sizeof(const char*));
             for (size_t i = 0; i < name_c.count; i++) 
             {
                 std::string str = cArray[i].get<std::string>();
@@ -169,7 +169,7 @@ int CObjectMufta::LoadMuftaDataFromJson(const char* filename)
         {
             auto& c1Array = nameArrays["c1"];
             name_c1.count = c1Array.size();
-            name_c1.data = (const char**)malloc(name_c1.count * sizeof(const char*));
+            name_c1.data =  (const char**)malloc(name_c1.count * sizeof(const char*));
             for (size_t i = 0; i < name_c1.count; i++) 
             {
                 std::string str = c1Array[i].get<std::string>();
@@ -277,7 +277,7 @@ END_MESSAGE_MAP()
 
 void CObjectMufta::OnCbnSelchanged()
 {
-    int selectedIndex = Mufta_d.GetCurSel();
+    int selectedIndex =  Mufta_d.GetCurSel();
     if (selectedIndex != CB_ERR) 
     {
         CString selectedText;
@@ -289,7 +289,7 @@ void CObjectMufta::OnCbnSelchanged()
 
 void CObjectMufta::OnCbnSelchangedt2()
 {
-    int selectedIndex = Mufta_dt2.GetCurSel();
+    int selectedIndex =  Mufta_dt2.GetCurSel();
     if (selectedIndex != CB_ERR) 
     {
         CString selectedText;
@@ -301,7 +301,7 @@ void CObjectMufta::OnCbnSelchangedt2()
 
 void CObjectMufta::OnCbnSelchangeb()
 {
-    int selectedIndex = Mufta_b.GetCurSel();
+    int selectedIndex =  Mufta_b.GetCurSel();
     if (selectedIndex != CB_ERR) 
     {
         CString selectedText;
@@ -313,7 +313,7 @@ void CObjectMufta::OnCbnSelchangeb()
 
 void CObjectMufta::OnCbnSelchangeb1()
 {
-    int selectedIndex = Mufta_b1.GetCurSel();
+    int selectedIndex =  Mufta_b1.GetCurSel();
     if (selectedIndex != CB_ERR) 
     {
         CString selectedText;
@@ -325,7 +325,7 @@ void CObjectMufta::OnCbnSelchangeb1()
 
 void CObjectMufta::OnCbnSelchanged1()
 {
-    int selectedIndex = Mufta_d1.GetCurSel();
+    int selectedIndex =  Mufta_d1.GetCurSel();
     if (selectedIndex != CB_ERR) 
     {
         CString selectedText;
@@ -337,7 +337,7 @@ void CObjectMufta::OnCbnSelchanged1()
 
 void CObjectMufta::OnCbnSelchangeDd()
 {
-    int selectedIndex = Mufta_D.GetCurSel();
+    int selectedIndex =  Mufta_D.GetCurSel();
     if (selectedIndex != CB_ERR) 
     {
         CString selectedText;
@@ -349,7 +349,7 @@ void CObjectMufta::OnCbnSelchangeDd()
 
 void CObjectMufta::OnCbnSelchangeDd1()
 {
-    int selectedIndex = Mufta_D1.GetCurSel();
+    int selectedIndex =  Mufta_D1.GetCurSel();
     if (selectedIndex != CB_ERR) 
     {
         CString selectedText;
@@ -361,7 +361,7 @@ void CObjectMufta::OnCbnSelchangeDd1()
 
 void CObjectMufta::OnCbnSelchangeL()
 {
-    int selectedIndex = Mufta_L.GetCurSel();
+    int selectedIndex =  Mufta_L.GetCurSel();
     if (selectedIndex != CB_ERR) 
     {
         CString selectedText;
@@ -373,7 +373,7 @@ void CObjectMufta::OnCbnSelchangeL()
 
 void CObjectMufta::OnCbnSelchangell()
 {
-    int selectedIndex = Mufta_l.GetCurSel();
+    int selectedIndex =  Mufta_l.GetCurSel();
     if (selectedIndex != CB_ERR) 
     {
         CString selectedText;
@@ -385,7 +385,7 @@ void CObjectMufta::OnCbnSelchangell()
 
 void CObjectMufta::OnCbnSelchanger()
 {
-    int selectedIndex = Mufta_r.GetCurSel();
+    int selectedIndex =  Mufta_r.GetCurSel();
     if (selectedIndex != CB_ERR) 
     {
         CString selectedText;
@@ -397,7 +397,7 @@ void CObjectMufta::OnCbnSelchanger()
 
 void CObjectMufta::OnCbnSelchangec()
 {
-    int selectedIndex = Mufta_c.GetCurSel();
+    int selectedIndex =  Mufta_c.GetCurSel();
     if (selectedIndex != CB_ERR) 
     {
         CString selectedText;
@@ -409,7 +409,7 @@ void CObjectMufta::OnCbnSelchangec()
 
 void CObjectMufta::OnCbnSelchangec1()
 {
-    int selectedIndex = Mufta_c1.GetCurSel();
+    int selectedIndex =  Mufta_c1.GetCurSel();
     if (selectedIndex != CB_ERR) 
     {
         CString selectedText;
