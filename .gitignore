@@ -16,6 +16,10 @@ Release/
 *.swp
 *.swo
 
+*.png
+*.jpg
+*.jpeg
+
 # OS
 .DS_Store
 Thumbs.db
